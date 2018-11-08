@@ -1,6 +1,24 @@
 #main {
     /* add CSS here */
+    max-width: 400px;
+    margin: auto;
+
+
+
 }
 .pet {
     /* add CSS here */
+    border-radius: 28px 28px 28px 28px;
+    -moz-border-radius: 28px 28px 28px 28px;
+    -webkit-border-radius: 28px 28px 28px 28px;
+    border: 2px dashed #fa0217;
+    -webkit-box-shadow: 7px 10px 5px 0px rgba(0,0,0,0.17);
+    -moz-box-shadow: 7px 10px 5px 0px rgba(0,0,0,0.17);
+    box-shadow: 7px 10px 5px 0px rgba(0,0,0,0.17);
+}
+.cat
+{
+    cursor: pointer;
+    padding: 10px 500px;
+
 }
