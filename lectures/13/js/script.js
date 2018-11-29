@@ -37,11 +37,50 @@ var questions = [{
 
 var currentQuestion = 0;
 var correctAnswers = 0;
+var count=0;
 var quizOver = false;
 displayCurrentQuestion();
 document.getElementById("quiz-message").style.display = 'none';
 function displayNext() {
     /*Write your code here */
+    var ans;
+    var radios = document.getElementsByTagName('input');
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].type === 'radio' && radios[i].checked) {
+            ans=radios[i];
+           count++;
+        }
+    }
+    if(count === 1)
+    {
+        count =0;
+        if(ans === questions[currentQuestion].correctAnswer )
+        {
+            correctAnswers++;
+        }
+        currentQuestion++;
+
+        document.getElementById("question").innerHTML = questions[currentQuestion].question;
+        var x= document.getElementById('choice-list');
+
+
+            x.innerHTML +=  '<li>' + '<input type= "radio" name = "checked"  >' + questions[currentQuestion].choices[0]+ '</li>';
+            x.innerHTML +=  '<li>' + '<input type= "radio" name = "checked"  >' + questions[currentQuestion].choices[1]+ '</li>';
+            x.innerHTML +=  '<li>' + '<input type= "radio" name = "checked"  >' + questions[currentQuestion].choices[2]+ '</li>';
+            x.innerHTML +=  '<li>' + '<input type= "radio" name = "checked"  >' + questions[currentQuestion].choices[3]+ '</li>';
+
+        if(currentQuestion === 5)
+        {
+            quizOver = true;
+            displayScore();
+
+        }
+    }
+    if(count === 0)
+    {
+        document.getElementById("quiz-message").style.display = "Select an answer!!";
+    }
+
 
     
 
@@ -51,12 +90,14 @@ function displayCurrentQuestion() {
     /*Write your code here */
 
 
-    document.getElementById("question").innerText = questions[0].question;
-   var x= document.getElementById("choice-list");
-    for(var i=0; i<4; i++)
+    document.getElementById("question").innerHTML = questions[currentQuestion].question;
+
+   for(var i=0; i<4; i++)
     {
-        x.innerHTML +=  '<li>' + '<input type= "radio" name = "checked">' + questions[currentQuestion].choices[i]+ '</li>';
+        document.getElementById("choice-list").innerHTML +=  "<li>" + '<input type= "radio" name = "checked" >' + questions[currentQuestion].choices[i]+ "</li>";
     }
+
+
 
 
 
