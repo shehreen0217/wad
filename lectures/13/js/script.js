@@ -19,6 +19,20 @@ var questions = [{
         "for",
         "none of the above"],
     correctAnswer : 1
+}, {
+    question : "The capital of Pakistan is ____________",
+    choices : [ "select",
+        "London",
+        "Lahore",
+        "Islamabad"],
+    correctAnswer : 2
+}, {
+    question : "Using _______ statement is how you test for a specific condition",
+    choices : [ "select",
+        "if",
+        "for",
+        "none of the above"],
+    correctAnswer : 1
 }];
 
 var currentQuestion = 0;
@@ -28,10 +42,24 @@ displayCurrentQuestion();
 document.getElementById("quiz-message").style.display = 'none';
 function displayNext() {
     /*Write your code here */
+
+    
+
 }
 
 function displayCurrentQuestion() {
     /*Write your code here */
+
+
+    document.getElementById("question").innerText = questions[0].question;
+   var x= document.getElementById("choice-list");
+    for(var i=0; i<4; i++)
+    {
+        x.innerHTML +=  '<li>' + '<input type= "radio" name = "checked">' + questions[currentQuestion].choices[i]+ '</li>';
+    }
+
+
+
 }
 
 function resetQuiz() {

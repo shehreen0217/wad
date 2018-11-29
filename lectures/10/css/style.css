@@ -1,0 +1,55 @@
+.aligning{
+    padding-left: 100px;
+    padding-top: 100px;
+}
+
+@media only screen and (max-width: 400px) {
+    .bg_clr{
+        background: darkblue;
+    }
+}
+
+@media only screen and (min-width: 400px) {
+    .xsm{
+        width: 100%;
+    }
+    .bg_clr{
+        background: lightblue;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .sm{
+        width: 50%;
+    }
+    .bg_clr{
+        background: green;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .md{
+        width: 32%;
+    }
+    .bg_clr{
+        background: blue;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .lg{
+        width: 25%;
+    }
+    .bg_clr{
+        background: red;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .lg{
+        width: 15%;
+    }
+    .bg_clr{
+        background: darkgrey;
+    }
+}

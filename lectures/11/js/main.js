@@ -131,7 +131,8 @@ function show() {
     var todos = getTodos();
     var ul = document.createElement('ul');
     ul.classList.add("list-group");
-    for(var i=0; i<todos.length; i++){
+    for(var i=0; i<todos.length; i++)
+    {
         var li = document.createElement('li');
         li.innerHTML  = '<li>' + todos[i].task + '</li>' +
             '<button class="btn btn-danger" id="' + i + '">' +
