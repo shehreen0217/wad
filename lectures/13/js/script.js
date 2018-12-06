@@ -40,7 +40,7 @@ var correctAnswers = 0;
 var count=0;
 var quizOver = false;
 displayCurrentQuestion();
-document.getElementById("quiz-message").style.display = 'none';
+
 function displayNext() {
     /*Write your code here */
     var ans;
