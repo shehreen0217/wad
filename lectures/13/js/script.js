@@ -1,4 +1,5 @@
-var questions = [{
+var questions = [
+    {
     question : "When a user views a page containing a JavaScript program, which machine actually executes the script?",
     choices : [ "The User's machine running a Web browser",
         "The Web server",
@@ -19,88 +20,58 @@ var questions = [{
         "for",
         "none of the above"],
     correctAnswer : 1
-}, {
-    question : "The capital of Pakistan is ____________",
-    choices : [ "select",
-        "London",
-        "Lahore",
-        "Islamabad"],
-    correctAnswer : 2
-}, {
-    question : "Using _______ statement is how you test for a specific condition",
-    choices : [ "select",
-        "if",
-        "for",
-        "none of the above"],
-    correctAnswer : 1
 }];
 
 var currentQuestion = 0;
 var correctAnswers = 0;
-var count=0;
 var quizOver = false;
 displayCurrentQuestion();
-
+document.getElementById("quiz-message").style.display = 'none';
 function displayNext() {
-    /*Write your code here */
-    var ans;
-    var radios = document.getElementsByTagName('input');
-    for (var i = 0; i < radios.length; i++) {
-        if (radios[i].type === 'radio' && radios[i].checked) {
-            ans=radios[i];
-           count++;
+    if(!quizOver){
+        var selectedValue = null;
+        if(document.querySelector('input[name="dq"]:checked') !== null)
+            selectedValue = document.querySelector('input[name="dq"]:checked').value;
+        if (selectedValue == null) {
+            document.getElementById("quiz-message").innerText = "Please selected an answer"
+            document.getElementById("quiz-message").style.display = 'block';
+        } else{
+            document.getElementById("quiz-message").style.display = 'none';
+            if(selectedValue == questions[currentQuestion].correctAnswer){
+                correctAnswers++;
+            }
+            currentQuestion++;
+            if(currentQuestion < questions.length){
+                displayCurrentQuestion();
+            }
+            else {
+                displayScore();
+                document.getElementById("next-btn").innerText = "Play Again?"
+                quizOver = true;
+            }
         }
+    } else {
+        quizOver = false;
+        document.getElementById("next-btn").innerText = "Next Question";
+        resetQuiz();
+        displayCurrentQuestion();
+        hideScore();
     }
-    if(count === 1)
-    {
-        count =0;
-        if(ans === questions[currentQuestion].correctAnswer )
-        {
-            correctAnswers++;
-        }
-        currentQuestion++;
-
-        document.getElementById("question").innerHTML = questions[currentQuestion].question;
-        var x= document.getElementById('choice-list');
-
-
-            x.innerHTML +=  '<li>' + '<input type= "radio" name = "checked"  >' + questions[currentQuestion].choices[0]+ '</li>';
-            x.innerHTML +=  '<li>' + '<input type= "radio" name = "checked"  >' + questions[currentQuestion].choices[1]+ '</li>';
-            x.innerHTML +=  '<li>' + '<input type= "radio" name = "checked"  >' + questions[currentQuestion].choices[2]+ '</li>';
-            x.innerHTML +=  '<li>' + '<input type= "radio" name = "checked"  >' + questions[currentQuestion].choices[3]+ '</li>';
-
-        if(currentQuestion === 5)
-        {
-            quizOver = true;
-            displayScore();
-
-        }
-    }
-    if(count === 0)
-    {
-        document.getElementById("quiz-message").style.display = "Select an answer!!";
-    }
-
-
-    
-
 }
 
 function displayCurrentQuestion() {
-    /*Write your code here */
+    var question = questions[currentQuestion].question;
+    var questionId = document.getElementById("question");
+    var choiceList = document.getElementById("choice-list");
+    var numChoices = questions[currentQuestion].choices.length;
 
-
-    document.getElementById("question").innerHTML = questions[currentQuestion].question;
-
-   for(var i=0; i<4; i++)
-    {
-        document.getElementById("choice-list").innerHTML +=  "<li>" + '<input type= "radio" name = "checked" >' + questions[currentQuestion].choices[i]+ "</li>";
+    questionId.innerText = question;
+    choiceList.innerHTML = "";
+    var choice;
+    for(var i=0; i<numChoices; i++){
+        choice = questions[currentQuestion].choices[i];
+        choiceList.innerHTML += "<li><input type='radio' value='"+i+"' name='dq'>" + choice + "</li>";
     }
-
-
-
-
-
 }
 
 function resetQuiz() {
