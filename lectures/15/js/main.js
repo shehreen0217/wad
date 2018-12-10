@@ -22,7 +22,7 @@ function deposit_amount(e,v) {
 
     if(e.key=="Enter")
     {
-        if()
+
         detail.balance = (detail.balance + parseInt(v));
         display_title();
 
