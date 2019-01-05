@@ -1,23 +1,35 @@
 <?php
-require_once "db_connection.php";
+/**
+ * Created by PhpStorm.
+ * User: user
+ * Date: 1/1/2019
+ * Time: 8:32 PM
+ */
 
-function getCats(){
+require "db_connection.php";
+
+function get_cats()
+{
     global $con;
     $getCatsQuery = "select * from categories";
-    $getCatsResult = mysqli_query($con,$getCatsQuery);
-    while($row = mysqli_fetch_assoc($getCatsResult)){
-        $cat_id = $row['cat_id'];
-        $cat_title = $row['cat_title'];
-        echo "<li><a class='nav-link'  href='#'>$cat_title</a></li>";
+    $getCatsResult = mysqli_query($con, $getCatsQuery);
+    while($row = mysqli_fetch_assoc($getCatsResult))
+    {
+        $id = $row['ID'];
+        $title = $row['Title'];
+        echo "<li><a class='nav-link' href='#'>$title</a></li>";
     }
 }
-function getBrands(){
+
+function get_Brands()
+{
     global $con;
-    $getBrandsQuery = "select * from brands";
-    $getBrandsResult = mysqli_query($con,$getBrandsQuery);
-    while($row = mysqli_fetch_assoc($getBrandsResult)){
-        $brand_id = $row['brand_id'];
-        $brand_title = $row['brand_title'];
-        echo "<li><a class='nav-link'  href='#'>$brand_title</a></li>";
+    $getCatsQuery = "select * from brands";
+    $getCatsResult = mysqli_query($con, $getCatsQuery);
+    while($row = mysqli_fetch_assoc($getCatsResult))
+    {
+        $id = $row['id'];
+        $title = $row['Title'];
+        echo "<li><a class='nav-link' href='#'>$title</a></li>";
     }
 }

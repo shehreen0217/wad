@@ -1,6 +1,3 @@
-<?php
-require_once "db_connection.php";
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +12,45 @@ require_once "db_connection.php";
             font-family: 'Old Standard TT', serif;
         }
     </style>
+    <?php
+    require "db_connection.php";
+    require "functions.php";
+    if(!$con)
+    {
+        echo "connection failed!";
+    }
+    if(!mysqli_select_db($con, 'cat_db'))
+    {
+        echo "database not selected";
+    }
+
+    $p_title = $_POST['pro_title'];
+    $p_cat = $_POST['pro_cat'];
+    $p_brand = $_POST['pro_brand'];
+    $p_price = $_POST['pro_price'];
+    $p_desc = $_POST['pro_desc'];
+    $p_kw = $_POST['pro_kw'];
+
+    $insert_product = "INSERT INTO products(pro_title, pro_cat, pro_brand, pro_price, pro_desc, pro_kw)
+                        VALUES ('$p_title','$p_cat','$p_brand','$p_price','$p_desc','$p_kw' )";
+
+    if(!mysqli_query($con, $insert_product))
+    {
+        echo "data not inserted";
+    }
+    else
+    {
+        echo "data inserted";
+    }
+    ?>
+
 </head>
 <body>
-<div class="container-fluid">
+<div class="container">
     <h1 class="text-center my-4"><i class="fas fa-plus fa-md"></i> <span class="d-none d-sm-inline"> Add New </span> Product </h1>
-    <form>
+    <form action="insert_product.php" method="post">
         <div class="row">
-            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2">
+            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto">
                 <label for="pro_title" class="float-md-right"> <span class="d-sm-none d-md-inline"> Product </span> Title:</label>
             </div>
             <div class="col-sm-9 col-md-8 col-lg-4 col-xl-4">
@@ -32,27 +61,25 @@ require_once "db_connection.php";
                     <input type="text" class="form-control" id="pro_title" name="pro_title" placeholder="Enter Product Title" >
                 </div>
             </div>
-            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2">
+            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto">
                 <label for="pro_cat" class="float-md-right"><span class="d-sm-none d-md-inline"> Product </span> Category:</label>
             </div>
-            <div class=" mt-3 mt-lg-0 col-md-8 col-sm-9 col-md-8 col-lg-4 col-xl-4">
+            <div class="col-sm-9 col-md-8 col-lg-4 col-xl-4 mt-3 mt-lg-0">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-list-alt"></i></div>
                     </div>
                     <select class="form-control" id="pro_cat" name="pro_cat">
                         <option>Select Category</option>
-                        <option>Mobile</option>
-                        <option>Laptop</option>
-                        <option>Tablet</option>
-                        <option>Watch</option>
-                        <option>Camera</option>
+                        <?php
+                        get_cats();
+                        ?>
                     </select>
                 </div>
             </div>
         </div>
         <div class="row my-3">
-            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2">
+            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto">
                 <label for="pro_brand" class="float-md-right"> <span class="d-sm-none d-md-inline"> Product </span> Brand:</label>
             </div>
             <div class="col-sm-9 col-md-8 col-lg-4 col-xl-4">
@@ -62,19 +89,16 @@ require_once "db_connection.php";
                     </div>
                     <select class="form-control" id="pro_brand" name="pro_brand">
                         <option>Select Brand</option>
-                        <option>Apple</option>
-                        <option>Samsung</option>
-                        <option>Oppo</option>
-                        <option>Dell</option>
-                        <option>HP</option>
-                        <option>Sony</option>
+                        <?php
+                        get_Brands();
+                        ?>
                     </select>
                 </div>
             </div>
-            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2">
+            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto">
                 <label for="pro_img" class="float-md-right"><span class="d-sm-none d-md-inline"> Product </span> Image:</label>
             </div>
-            <div class=" mt-3 mt-lg-0 col-sm-9 col-md-8 col-lg-4 col-xl-4">
+            <div class="col-sm-9 col-md-8 col-lg-4 col-xl-4 mt-3 mt-lg-0">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="far fa-image"></i></div>
@@ -84,7 +108,7 @@ require_once "db_connection.php";
             </div>
         </div>
         <div class="row my-3">
-            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2">
+            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto">
                 <label for="pro_price" class="float-md-right"> <span class="d-sm-none d-md-inline"> Product </span> Price:</label>
             </div>
             <div class="col-sm-9 col-md-8 col-lg-4 col-xl-4">
@@ -95,10 +119,10 @@ require_once "db_connection.php";
                     <input class="form-control" id="pro_price" name="pro_price" placeholder="Enter Product Price">
                 </div>
             </div>
-            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2">
+            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto">
                 <label for="pro_kw" class="float-md-right"><span class="d-sm-none d-md-inline"> Product </span> Keyword:</label>
             </div>
-            <div class=" mt-3 mt-lg-0 col-sm-9 col-md-8 col-lg-4 col-xl-4">
+            <div class="col-sm-9 col-md-8 col-lg-4 col-xl-4 mt-3 mt-lg-0">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-key"></i></div>
@@ -108,7 +132,7 @@ require_once "db_connection.php";
             </div>
         </div>
         <div class="row my-3">
-            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2">
+            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto">
                 <label for="pro_desc" class="float-md-right"><span class="d-sm-none d-md-inline"> Product </span> Detail:</label>
             </div>
             <div class="col-sm-9 col-md-8 col-lg-4 col-xl-4">
@@ -121,7 +145,7 @@ require_once "db_connection.php";
             </div>
         </div>
         <div class="row my-3">
-            <div class="col-sm-3 col-md-4 col-lg-2 col-xl-2"></div>
+            <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto"></div>
             <div class="col-sm-9 col-md-8 col-lg-4 col-xl-4">
                 <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-plus"></i> Insert Now </button>
             </div>

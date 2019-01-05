@@ -1,4 +1,5 @@
 <?php
-$con = mysqli_connect("localhost","root","","tech_box_db");
+
+$con = mysqli_connect("localhost","root","","cat_db");
 if(!$con)
     die("Connection failed");
