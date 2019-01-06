@@ -23,25 +23,29 @@
     {
         echo "database not selected";
     }
+    if(isset($_POST['pro_insert']))
+    {
+        $p_title = $_POST['pro_title'];
+        $p_cat = $_POST['pro_cat'];
+        $p_brand = $_POST['pro_brand'];
+        $p_price = $_POST['pro_price'];
+        $p_desc = $_POST['pro_desc'];
+        $p_kw = $_POST['pro_kw'];
 
-    $p_title = $_POST['pro_title'];
-    $p_cat = $_POST['pro_cat'];
-    $p_brand = $_POST['pro_brand'];
-    $p_price = $_POST['pro_price'];
-    $p_desc = $_POST['pro_desc'];
-    $p_kw = $_POST['pro_kw'];
-
-    $insert_product = "INSERT INTO products(pro_title, pro_cat, pro_brand, pro_price, pro_desc, pro_kw)
+        $insert_product = "INSERT INTO products(pro_title, pro_cat, pro_brand, pro_price, pro_desc, pro_kw)
                         VALUES ('$p_title','$p_cat','$p_brand','$p_price','$p_desc','$p_kw' )";
 
-    if(!mysqli_query($con, $insert_product))
-    {
-        echo "data not inserted";
+        if(!mysqli_query($con, $insert_product))
+        {
+            echo "data not inserted";
+        }
+        else
+        {
+            echo "data inserted";
+        }
+
     }
-    else
-    {
-        echo "data inserted";
-    }
+
     ?>
 
 </head>
@@ -147,7 +151,7 @@
         <div class="row my-3">
             <div class="d-none d-sm-block col-sm-3 col-md-4 col-lg-2 col-xl-2 mt-auto"></div>
             <div class="col-sm-9 col-md-8 col-lg-4 col-xl-4">
-                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-plus"></i> Insert Now </button>
+                <button type="submit" class="btn btn-primary btn-block" name = "pro_insert"><i class="fas fa-plus"></i> Insert Now </button>
             </div>
         </div>
     </form>
