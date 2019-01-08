@@ -100,9 +100,7 @@
     <article id="content" class="container-fluid bg-white">
 
         <div class="row">
-            <div class="col">
-                Content
-            </div>
+                <?php getPro(); ?>
         </div>
     </article>
 
